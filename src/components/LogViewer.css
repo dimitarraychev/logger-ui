@@ -1,0 +1,12 @@
+.log-wrapper {
+  width: 100%;
+  padding: 1rem;
+}
+
+.log-container {
+  height: 80vh;
+  overflow-y: scroll;
+  border: 1px solid var(--border);
+  padding: 1rem;
+  background-color: var(--dark);
+}
