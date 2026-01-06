@@ -2,7 +2,7 @@ import "./LogViewer.css";
 import { useEffect, useRef } from "react";
 import { useLogSocket } from "../hooks/useLogSocket";
 
-const WS_URL = "ws://127.0.0.1:4000/logs/ws";
+const WS_URL = "wss://192.168.10.178/logs/ws";
 
 const LogViewer = () => {
   const logs = useLogSocket({ url: WS_URL, maxLogs: 200 });
