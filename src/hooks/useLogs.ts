@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import type { LogEntry, UseLogsOptions } from "../types/Logs";
+import type { LogEntryType, UseLogsOptions } from "../types/Logs";
+import { mockedLogs } from "./mockedLogs";
 
 export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
-  const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [logs, setLogs] = useState<LogEntryType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pollTrigger, setPollTrigger] = useState(0);
@@ -15,10 +16,11 @@ export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
       // probably move to bottom
       setPollTrigger((prev) => prev + 1);
 
-      const res = await fetch(`/api/logs?limit=${limit}`);
-      if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
-      const data = await res.json();
-      setLogs(data.logs || []);
+      // const res = await fetch(`/api/logs?limit=${limit}`);
+      // if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
+      // const data = await res.json();
+      // setLogs(data.logs || []);
+      setLogs(mockedLogs.logs);
       setError(null);
     } catch (err: any) {
       setError(err.message || "Unknown error");

@@ -1,14 +1,14 @@
 .poll-loader-wrapper {
   width: 25ch;
   height: 0.5rem;
-  background-color: #e0e0e0;
+  background-color: var(--dark);
   border-radius: 0.1rem;
   overflow: hidden;
 }
 
 .poll-loader-bar {
   height: 100%;
-  background-color: #007bff;
+  background-color: var(--light-gray);
   border-radius: 2px;
   transition: width 0.05s linear;
 }

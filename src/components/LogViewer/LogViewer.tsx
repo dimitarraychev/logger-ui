@@ -1,7 +1,7 @@
 import "./LogViewer.css";
 import { useEffect, useRef } from "react";
 import { useLogs } from "../../hooks/useLogs";
-import LogLine from "../LogLine/LogLine";
+import LogEntry from "../LogEntry/LogEntry";
 import Button from "../Button/Button";
 import NumberInput from "../NumberInput/NumberInput";
 import { useForm } from "../../hooks/useForm";
@@ -56,7 +56,7 @@ const LogViewer = () => {
         {error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          logs.map((log, i) => <LogLine key={i} log={log} />)
+          logs.map((log, i) => <LogEntry key={i} log={log} />)
         )}
       </div>
     </div>

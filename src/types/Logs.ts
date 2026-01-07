@@ -1,4 +1,4 @@
-export interface LogEntry {
+export interface LogEntryType {
   timestamp: string;
   level: string;
   message: string;
@@ -6,7 +6,7 @@ export interface LogEntry {
 }
 
 export interface UseLogsOptions {
-  url?: string;    
-  pollInterval?: number; 
-  limit?: number; 
+  url?: string;
+  pollInterval?: number;
+  limit?: number;
 }
