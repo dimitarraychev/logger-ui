@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import type { LogEntryType, UseLogsOptions } from "../types/Logs";
-import { mockedLogs } from "./mockedLogs";
 
 export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
   const [logs, setLogs] = useState<LogEntryType[]>([]);
@@ -13,19 +12,16 @@ export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
   const fetchLogs = async () => {
     setLoading(true);
     try {
-      // probably move to bottom
-      setPollTrigger((prev) => prev + 1);
-
-      // const res = await fetch(`/api/logs?limit=${limit}`);
-      // if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
-      // const data = await res.json();
-      // setLogs(data.logs || []);
-      setLogs(mockedLogs.logs);
+      const res = await fetch(`/api/logs?limit=${limit}`);
+      if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
+      const data = await res.json();
+      setLogs(data.logs || []);
       setError(null);
     } catch (err: any) {
       setError(err.message || "Unknown error");
     } finally {
       setLoading(false);
+      setPollTrigger((prev) => prev + 1);
     }
   };
 
