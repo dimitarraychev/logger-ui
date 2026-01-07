@@ -19,9 +19,14 @@ const NumberInput = ({
   max,
   onChange,
 }: NumberInputProps) => {
-  const update = (newVal: number) => {
-    if (min !== undefined && newVal < min) newVal = min;
-    if (max !== undefined && newVal > max) newVal = max;
+  const update = (newVal: number, direction?: "up" | "down") => {
+    if (direction === "down" && value === min && newVal < min) {
+      // Allow going from min to 0
+      newVal = 0;
+    } else if (newVal !== 0) {
+      if (min !== undefined && newVal < min) newVal = min;
+      if (max !== undefined && newVal > max) newVal = max;
+    }
 
     if (onChange) {
       const event = {
@@ -38,10 +43,10 @@ const NumberInput = ({
       <div className="number-input-wrapper">
         <input type="number" name={name} value={value} onChange={onChange} />
         <div className="arrows">
-          <div className="up" onClick={() => update(value + step)}>
+          <div className="up" onClick={() => update(value + step, "up")}>
             ▲
           </div>
-          <div className="down" onClick={() => update(value - step)}>
+          <div className="down" onClick={() => update(value - step, "down")}>
             ▼
           </div>
         </div>

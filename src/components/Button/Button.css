@@ -18,7 +18,7 @@
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   transition-duration: 200ms;
   transition-property: transform, filter;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .btn:hover {

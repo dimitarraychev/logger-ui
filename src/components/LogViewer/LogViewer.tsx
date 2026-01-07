@@ -5,6 +5,7 @@ import LogLine from "../LogLine/LogLine";
 import Button from "../Button/Button";
 import NumberInput from "../NumberInput/NumberInput";
 import { useForm } from "../../hooks/useForm";
+import PollLoader from "../PollLoader/PollLoader";
 
 const LogViewer = () => {
   const { values, handleChange } = useForm({
@@ -12,10 +13,11 @@ const LogViewer = () => {
     limit: 50,
   });
 
-  const { logs, loading, error, refresh } = useLogs({
+  const { logs, error, pollTrigger, refresh } = useLogs({
     pollInterval: values.pollInterval,
     limit: values.limit,
   });
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,8 +33,8 @@ const LogViewer = () => {
           name="pollInterval"
           label="Poll Interval (ms):"
           value={values.pollInterval}
-          min={0}
-          max={10000}
+          min={5000}
+          max={20000}
           onChange={handleChange}
         />
 
@@ -47,14 +49,14 @@ const LogViewer = () => {
 
         <Button onClick={refresh} title="Refresh" text="Refresh" />
 
-        {loading && <p>Loading logs...</p>}
+        <PollLoader pollInterval={values.pollInterval} trigger={pollTrigger} />
       </div>
 
       <div className="logs-container" ref={containerRef}>
         {error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          logs.map((log, i) => <LogLine i={i} log={log} />)
+          logs.map((log, i) => <LogLine key={i} log={log} />)
         )}
       </div>
     </div>
