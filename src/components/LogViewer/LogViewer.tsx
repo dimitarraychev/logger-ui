@@ -45,7 +45,7 @@ const LogViewer = () => {
 
       <div className="logs-container">
         {error ? (
-          <p className="text-red-500">{error}</p>
+          <p className="logs-error">{error}</p>
         ) : (
           logs.map((log, i) => <LogEntry key={i} log={log} />)
         )}
