@@ -9,9 +9,7 @@ interface JsonViewerProps {
 const JsonViewer = ({ jsonData, title }: JsonViewerProps) => {
   return (
     <div className="json-view-wrapper">
-      <p style={{ color: title === "Success" ? "var(--green)" : "var(--red)" }}>
-        {title}
-      </p>
+      <label className="json-title">{title}</label>
       <ReactJson
         src={jsonData}
         theme="monokai"
