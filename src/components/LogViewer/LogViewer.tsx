@@ -1,5 +1,4 @@
 import "./LogViewer.css";
-import { useEffect, useRef } from "react";
 import { useLogs } from "../../hooks/useLogs";
 import LogEntry from "../LogEntry/LogEntry";
 import Button from "../Button/Button";
@@ -17,14 +16,6 @@ const LogViewer = () => {
     pollInterval: values.pollInterval,
     limit: values.limit,
   });
-
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [logs]);
 
   return (
     <div className="logs-wrapper">
@@ -52,7 +43,7 @@ const LogViewer = () => {
         <PollLoader pollInterval={values.pollInterval} trigger={pollTrigger} />
       </div>
 
-      <div className="logs-container" ref={containerRef}>
+      <div className="logs-container">
         {error ? (
           <p className="text-red-500">{error}</p>
         ) : (
