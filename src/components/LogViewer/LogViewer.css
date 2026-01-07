@@ -1,35 +1,20 @@
-.log-wrapper {
+.logs-wrapper {
   width: 100%;
   padding: 0 1rem;
 }
 
-.log-container {
+.logs-settings {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logs-container {
   height: 80vh;
   overflow-y: scroll;
   border: 1px solid var(--border);
-  padding: 1rem;
+  padding: 0.5rem;
   background-color: var(--dark);
   border-radius: 0.5rem;
-}
-
-.logo-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  margin: 0.5rem 0;
-}
-
-.logo-text {
-  color: var(--dark-gray);
-  font-size: 1.2rem;
-  letter-spacing: -0.5px;
-  font-weight: 700;
-  margin-left: -0.2rem;
-  padding-right: 0.5rem;
-}
-
-.logo {
-  height: 2rem;
+  margin-top: 0.5rem;
 }
