@@ -1,5 +1,5 @@
 {
-  "name": "logger-ui",
+  "name": "api-logs-monitor",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import NumberInput from "../NumberInput/NumberInput";
 import { useForm } from "../../hooks/useForm";
 import PollLoader from "../PollLoader/PollLoader";
+import refreshIcon from "../../assets/refresh-icon.svg";
 
 const LogViewer = () => {
   const { values, handleChange } = useForm({
@@ -38,7 +39,12 @@ const LogViewer = () => {
           onChange={handleChange}
         />
 
-        <Button onClick={refresh} title="Refresh" text="Refresh" />
+        <Button
+          onClick={refresh}
+          title="Refresh"
+          text="Refresh"
+          icon={refreshIcon}
+        />
 
         <PollLoader pollInterval={values.pollInterval} trigger={pollTrigger} />
       </div>

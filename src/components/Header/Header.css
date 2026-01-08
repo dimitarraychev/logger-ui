@@ -1,19 +1,31 @@
 .header {
+  height: 4rem;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.header .logo-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  padding: 1rem;
-  width: 100%;
+  gap: 0.2rem;
 }
 
-.logo-text {
+.header .logo-text {
   color: var(--dark-gray);
   font-size: 1.2rem;
   letter-spacing: -0.5px;
   font-weight: 700;
 }
 
-.logo {
-  height: 1.5rem;
+.header .logo {
+  height: 2rem;
 }

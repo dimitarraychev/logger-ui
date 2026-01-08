@@ -1,6 +1,10 @@
 .logs-wrapper {
   width: 100%;
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 1rem;
 }
 
 .logs-settings {
@@ -10,8 +14,7 @@
 }
 
 .logs-container {
-  height: 80vh;
-  width: 100%;
+  flex: 1;
   overflow-y: scroll;
   border: 1px solid var(--border);
   padding: 0.5rem;
