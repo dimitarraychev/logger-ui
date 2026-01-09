@@ -1,0 +1,21 @@
+.api-status {
+  padding: 0.5rem 1rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 14rem;
+  border: 1px solid var(--border);
+}
+
+.api-status.loading p {
+  color: var(--light-gray);
+}
+
+.api-status.live p {
+  color: var(--green);
+}
+
+.api-status.offline p {
+  color: var(--red);
+}

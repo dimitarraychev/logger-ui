@@ -7,12 +7,6 @@
   margin-bottom: 1rem;
 }
 
-.logs-settings {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .logs-container {
   flex: 1;
   overflow-y: scroll;

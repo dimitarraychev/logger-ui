@@ -1,11 +1,8 @@
 import "./LogViewer.css";
 import { useLogs } from "../../hooks/useLogs";
 import LogEntry from "../LogEntry/LogEntry";
-import Button from "../Button/Button";
-import NumberInput from "../NumberInput/NumberInput";
 import { useForm } from "../../hooks/useForm";
-import PollLoader from "../PollLoader/PollLoader";
-import refreshIcon from "../../assets/refresh-icon.svg";
+import LogSettings from "../LogSettings/LogSettings";
 
 const LogViewer = () => {
   const { values, handleChange } = useForm({
@@ -20,34 +17,7 @@ const LogViewer = () => {
 
   return (
     <div className="logs-wrapper">
-      <div className="logs-settings">
-        <NumberInput
-          name="pollInterval"
-          label="Poll Interval (ms):"
-          value={values.pollInterval}
-          min={5000}
-          max={20000}
-          onChange={handleChange}
-        />
-
-        <NumberInput
-          name="limit"
-          label="Limit:"
-          value={values.limit}
-          min={50}
-          max={200}
-          onChange={handleChange}
-        />
-
-        <Button
-          onClick={refresh}
-          title="Refresh"
-          text="Refresh"
-          icon={refreshIcon}
-        />
-
-        <PollLoader pollInterval={values.pollInterval} trigger={pollTrigger} />
-      </div>
+      <LogSettings values={values} handleChange={handleChange} refresh={refresh} pollTrigger={pollTrigger} />
 
       <div className="logs-container">
         {error ? (
