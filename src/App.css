@@ -1,5 +1,5 @@
 .app {
-  height: 100vh;
+  min-height: 100vh;
   color: white;
   display: flex;
   align-items: center;
