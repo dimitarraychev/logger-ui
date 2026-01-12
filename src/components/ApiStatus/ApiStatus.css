@@ -6,6 +6,11 @@
   text-align: center;
   width: 14rem;
   border: 1px solid var(--border);
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.35rem;
 }
 
 .api-status.loading p {
