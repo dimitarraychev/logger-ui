@@ -50,6 +50,10 @@
   color: var(--red);
 }
 
+.log-level-ping {
+  color: var(--light-gray);
+}
+
 .log-message {
   flex: 1;
 }

@@ -20,3 +20,7 @@
 .logs-error {
   color: var(--red);
 }
+
+.logs-info {
+  color: var(--light-gray);
+}

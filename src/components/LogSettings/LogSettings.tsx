@@ -9,6 +9,7 @@ interface LogSettingsProps {
   values: {
     pollInterval: number;
     limit: number;
+    showPings: boolean;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   refresh: () => void | Promise<void>;
@@ -24,6 +25,15 @@ const LogSettings = ({
   return (
     <div className="logs-settings">
       <ApiStatus refreshTrigger={pollTrigger} />
+      <label>
+        Show Pings
+        <input
+          type="checkbox"
+          name="excludeAmbiguous"
+          checked={values.showPings}
+          onChange={handleChange}
+        />
+      </label>
 
       <NumberInput
         name="pollInterval"
