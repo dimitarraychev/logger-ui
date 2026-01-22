@@ -29,7 +29,7 @@ const LogSettings = ({
         Show Pings
         <input
           type="checkbox"
-          name="excludeAmbiguous"
+          name="showPings"
           checked={values.showPings}
           onChange={handleChange}
         />
