@@ -23,7 +23,19 @@ const LogViewer = () => {
 
   const pingCount = logs.filter((log) => log.level === "ping").length;
 
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id); // collapse
+      } else {
+        newSet.add(id); // expand
+      }
+      return newSet;
+    });
+  };
 
   return (
     <div className="logs-wrapper">
@@ -48,10 +60,8 @@ const LogViewer = () => {
             <LogEntry
               key={log._id}
               log={log}
-              isExpanded={expandedId === log._id}
-              toggleExpand={() =>
-                setExpandedId(expandedId === log._id ? null : log._id)
-              }
+              isExpanded={expandedIds.has(log._id)}
+              toggleExpand={() => toggleExpand(log._id)}
             />
           ))
         )}
