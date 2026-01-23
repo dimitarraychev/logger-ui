@@ -4,6 +4,7 @@ import LogEntry from "../LogEntry/LogEntry";
 import { useForm } from "../../hooks/useForm";
 import LogSettings from "../LogSettings/LogSettings";
 import { useState } from "react";
+import { useHighlightedLogs } from "../../hooks/useHighlightedLogs";
 
 const LogViewer = () => {
   const { values, handleChange } = useForm({
@@ -20,11 +21,9 @@ const LogViewer = () => {
   const filteredLogs = values.showPings
     ? logs
     : logs.filter((log) => log.level !== "ping");
-
-  const pingCount = logs.filter((log) => log.level === "ping").length;
+  const pingsCount = logs.filter((log) => log.level === "ping").length;
 
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
-
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
       const newSet = new Set(prev);
@@ -37,6 +36,11 @@ const LogViewer = () => {
     });
   };
 
+  const { newIds } = useHighlightedLogs({
+    logs: filteredLogs,
+    highlightDuration: 3000,
+  });
+
   return (
     <div className="logs-wrapper">
       <LogSettings
@@ -47,9 +51,9 @@ const LogViewer = () => {
       />
 
       <div className="logs-container">
-        {!values.showPings && pingCount > 0 && (
+        {!values.showPings && pingsCount > 0 && (
           <div className="logs-info">
-            {pingCount} ping log{pingCount !== 1 ? "s" : ""} filtered
+            {pingsCount} ping log{pingsCount !== 1 ? "s" : ""} filtered
           </div>
         )}
 
@@ -62,6 +66,7 @@ const LogViewer = () => {
               log={log}
               isExpanded={expandedIds.has(log._id)}
               toggleExpand={() => toggleExpand(log._id)}
+              highlight={newIds.has(log._id)}
             />
           ))
         )}

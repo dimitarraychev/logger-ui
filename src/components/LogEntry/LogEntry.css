@@ -72,3 +72,16 @@
 .status-error {
   color: var(--red);
 }
+
+.log-new {
+  animation: highlightFlash 3s ease-out;
+}
+
+@keyframes highlightFlash {
+  0% {
+    background-color: #ffff99;
+  }
+  100% {
+    background-color: transparent;
+  }
+}

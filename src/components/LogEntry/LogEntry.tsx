@@ -6,15 +6,24 @@ interface LogEntryProps {
   log: LogEntryType;
   isExpanded: boolean;
   toggleExpand: () => void;
+  highlight?: boolean;
 }
 
-const LogEntry = ({ log, isExpanded, toggleExpand }: LogEntryProps) => {
+const LogEntry = ({
+  log,
+  isExpanded,
+  toggleExpand,
+  highlight = false,
+}: LogEntryProps) => {
   const { level, message, metadata } = log;
   const { method, path, body, status, durationMs, responseBody, timestamp } =
     metadata;
 
   return (
-    <details className="log-entry" open={isExpanded}>
+    <details
+      className={`log-entry ${highlight ? "log-new" : ""}`}
+      open={isExpanded}
+    >
       <summary className="log-summary" onClick={toggleExpand}>
         <span className="log-timestamp">{timestamp}</span>
         <span className={`log-level log-level-${level}`}>
