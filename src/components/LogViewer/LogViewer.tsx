@@ -3,6 +3,7 @@ import { useLogs } from "../../hooks/useLogs";
 import LogEntry from "../LogEntry/LogEntry";
 import { useForm } from "../../hooks/useForm";
 import LogSettings from "../LogSettings/LogSettings";
+import { useState } from "react";
 
 const LogViewer = () => {
   const { values, handleChange } = useForm({
@@ -21,6 +22,8 @@ const LogViewer = () => {
     : logs.filter((log) => log.level !== "ping");
 
   const pingCount = logs.filter((log) => log.level === "ping").length;
+
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <div className="logs-wrapper">
@@ -41,7 +44,16 @@ const LogViewer = () => {
         {error ? (
           <p className="logs-error">{error}</p>
         ) : (
-          filteredLogs.map((log, i) => <LogEntry key={i} log={log} />)
+          filteredLogs.map((log) => (
+            <LogEntry
+              key={log._id}
+              log={log}
+              isExpanded={expandedId === log._id}
+              toggleExpand={() =>
+                setExpandedId(expandedId === log._id ? null : log._id)
+              }
+            />
+          ))
         )}
       </div>
     </div>

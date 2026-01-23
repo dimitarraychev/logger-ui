@@ -4,16 +4,18 @@ import JsonViewer from "../JsonViewer/JsonViewer";
 
 interface LogEntryProps {
   log: LogEntryType;
+  isExpanded: boolean;
+  toggleExpand: () => void;
 }
 
-const LogEntry = ({ log }: LogEntryProps) => {
+const LogEntry = ({ log, isExpanded, toggleExpand }: LogEntryProps) => {
   const { level, message, metadata } = log;
   const { method, path, body, status, durationMs, responseBody, timestamp } =
     metadata;
 
   return (
-    <details className="log-entry">
-      <summary className="log-summary">
+    <details className="log-entry" open={isExpanded}>
+      <summary className="log-summary" onClick={toggleExpand}>
         <span className="log-timestamp">{timestamp}</span>
         <span className={`log-level log-level-${level}`}>
           {level.toUpperCase()}
