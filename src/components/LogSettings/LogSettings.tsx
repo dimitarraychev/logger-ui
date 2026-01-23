@@ -12,12 +12,14 @@ interface LogSettingsProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   refresh?: () => void | Promise<void>;
   pollTrigger: number;
+  averageDuration: number | null;
 }
 
 const LogSettings = ({
   values,
   handleChange,
   pollTrigger,
+  averageDuration,
 }: LogSettingsProps) => {
   return (
     <div className="logs-settings">
@@ -60,6 +62,13 @@ const LogSettings = ({
         min={50}
         max={200}
         step={10}
+      />
+
+      <StatusCard
+        label="Avg Duration"
+        name="limit"
+        units="ms"
+        value={averageDuration === null ? 0 : averageDuration}
       />
     </div>
   );

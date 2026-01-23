@@ -18,6 +18,7 @@ export const useLogs = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pollTrigger, setPollTrigger] = useState(0);
+  const [averageDuration, setAverageDuration] = useState<number | null>(null);
 
   const filteredLogs = showPings
     ? logs
@@ -32,10 +33,25 @@ export const useLogs = ({
       const res = await fetch(`/api/logs?limit=${limit}`);
       if (!res.ok) throw new Error(`Failed to fetch logs: ${res.status}`);
       const data = await res.json();
-      setLogs(data.logs || []);
+      const fetchedLogs: LogEntryType[] = data.logs || [];
+      setLogs(fetchedLogs);
       setError(null);
+
+      const durations = (
+        showPings ? fetchedLogs : fetchedLogs.filter((l) => l.level !== "ping")
+      )
+        .map((l) => l.metadata.durationMs)
+        .filter((d): d is number => typeof d === "number");
+
+      const avg =
+        durations.length > 0
+          ? durations.reduce((sum, d) => sum + d, 0) / durations.length
+          : 0;
+
+      setAverageDuration(avg);
     } catch (err: any) {
       setError(err.message || "Unknown error");
+      setAverageDuration(null);
     } finally {
       setLoading(false);
       setPollTrigger((prev) => prev + 1);
@@ -62,5 +78,6 @@ export const useLogs = ({
     refresh: fetchLogs,
     logs: filteredLogs,
     pingsCount,
+    averageDuration
   };
 };

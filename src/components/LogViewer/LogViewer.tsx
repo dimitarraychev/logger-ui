@@ -14,7 +14,7 @@ const LogViewer = () => {
     autoRefresh: true,
   });
 
-  const { logs, error, pollTrigger, refresh, pingsCount } = useLogs({
+  const { logs, error, pollTrigger, refresh, pingsCount, averageDuration } = useLogs({
     pollInterval: values.pollInterval,
     limit: values.limit,
     showPings: values.showPings,
@@ -35,6 +35,7 @@ const LogViewer = () => {
         handleChange={handleChange}
         refresh={refresh}
         pollTrigger={pollTrigger}
+        averageDuration={averageDuration}
       />
 
       <div className="logs-container">
