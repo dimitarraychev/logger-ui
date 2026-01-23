@@ -7,38 +7,38 @@ interface LogEntryProps {
 }
 
 const LogEntry = ({ log }: LogEntryProps) => {
+  const { level, message, metadata } = log;
+  const { method, path, body, status, durationMs, responseBody, timestamp } =
+    metadata;
+
   return (
     <details className="log-entry">
       <summary className="log-summary">
-        <span className="log-timestamp">{log.timestamp}</span>
-        <span className={`log-level log-level-${log.level}`}>
-          {log.level.toUpperCase()}
+        <span className="log-timestamp">{timestamp}</span>
+        <span className={`log-level log-level-${level}`}>
+          {level.toUpperCase()}
         </span>
-        {log.durationMs && (
-          <span className="log-duration">{log.durationMs}ms</span>
-        )}
-        {log.status && (
+        {durationMs && <span className="log-duration">{durationMs}ms</span>}
+        {status && (
           <span
             className={`log-status
-    ${log.status === 200 ? "status-success" : ""}
+    ${status === 200 ? "status-success" : ""}
     ${
-      log.status === 404 || log.status === 500 || log.status === 400
-        ? "status-error"
-        : ""
+      status === 404 || status === 500 || status === 400 ? "status-error" : ""
     }`}
           >
-            {log.status}
+            {status}
           </span>
         )}
-        {log.method && <span className="log-method">{log.method}</span>}
-        {log.path && <span className="log-path">{log.path}</span>}
-        <span className="log-message">{log.message}</span>
+        {method && <span className="log-method">{method}</span>}
+        {path && <span className="log-path">{path}</span>}
+        <span className="log-message">{message}</span>
       </summary>
 
       <div className="log-details">
-        {log.body && <JsonViewer jsonData={log.body} title="Request Body:" />}
-        {log.responseBody && (
-          <JsonViewer jsonData={log.responseBody} title="Response Body:" />
+        {body && <JsonViewer jsonData={body} title="Request Body:" />}
+        {responseBody && (
+          <JsonViewer jsonData={responseBody} title="Response Body:" />
         )}
       </div>
     </details>
