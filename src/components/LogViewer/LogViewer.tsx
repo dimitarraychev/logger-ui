@@ -1,9 +1,9 @@
 import "./LogViewer.css";
-import { useLogs } from "../../hooks/useLogs";
 import LogEntry from "../LogEntry/LogEntry";
-import { useForm } from "../../hooks/useForm";
 import LogSettings from "../LogSettings/LogSettings";
-import { useState } from "react";
+import { useForm } from "../../hooks/useForm";
+import { useLogs } from "../../hooks/useLogs";
+import { useExpandableIds } from "../../hooks/useExpandableIds";
 import { useHighlightedLogs } from "../../hooks/useHighlightedLogs";
 
 const LogViewer = () => {
@@ -13,31 +13,16 @@ const LogViewer = () => {
     showPings: false,
   });
 
-  const { logs, error, pollTrigger, refresh } = useLogs({
+  const { logs, error, pollTrigger, refresh, pingsCount } = useLogs({
     pollInterval: values.pollInterval,
     limit: values.limit,
+    showPings: values.showPings,
   });
 
-  const filteredLogs = values.showPings
-    ? logs
-    : logs.filter((log) => log.level !== "ping");
-  const pingsCount = logs.filter((log) => log.level === "ping").length;
-
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
-  const toggleExpand = (id: string) => {
-    setExpandedIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id); // collapse
-      } else {
-        newSet.add(id); // expand
-      }
-      return newSet;
-    });
-  };
+  const { expandedIds, toggleExpand } = useExpandableIds();
 
   const { newIds } = useHighlightedLogs({
-    logs: filteredLogs,
+    logs,
     highlightDuration: 3000,
   });
 
@@ -60,7 +45,7 @@ const LogViewer = () => {
         {error ? (
           <p className="logs-error">{error}</p>
         ) : (
-          filteredLogs.map((log) => (
+          logs.map((log) => (
             <LogEntry
               key={log._id}
               log={log}

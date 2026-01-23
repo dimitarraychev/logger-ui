@@ -1,11 +1,26 @@
 import { useState, useEffect, useRef } from "react";
-import type { LogEntryType, UseLogsOptions } from "../types/Logs";
+import type { LogEntryType } from "../types/Logs";
 
-export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
+export interface UseLogsProps {
+  pollInterval?: number;
+  limit?: number;
+  showPings?: boolean;
+}
+
+export const useLogs = ({
+  pollInterval,
+  limit = 100,
+  showPings = false,
+}: UseLogsProps = {}) => {
   const [logs, setLogs] = useState<LogEntryType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pollTrigger, setPollTrigger] = useState(0);
+
+  const filteredLogs = showPings
+    ? logs
+    : logs.filter((log) => log.level !== "ping");
+  const pingsCount = logs.filter((log) => log.level === "ping").length;
 
   const intervalRef = useRef<number | undefined>(undefined);
 
@@ -38,5 +53,12 @@ export const useLogs = ({ pollInterval, limit = 100 }: UseLogsOptions = {}) => {
     }
   }, [limit, pollInterval]);
 
-  return { logs, loading, error, pollTrigger, refresh: fetchLogs };
+  return {
+    loading,
+    error,
+    pollTrigger,
+    refresh: fetchLogs,
+    logs: filteredLogs,
+    pingsCount,
+  };
 };
