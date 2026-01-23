@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -12,6 +11,7 @@
   aspect-ratio: 1/1;
   background-color: var(--dark);
   position: relative;
+  gap: 0.1rem;
 }
 
 .status-card-label {
@@ -43,9 +43,9 @@
 
 .status-arrows {
   position: absolute;
-  right: 2.9rem;
-  top: 0.5rem;
-  bottom: 0.5rem;
+  right: 2.85rem;
+  top: 0.3rem;
+  bottom: 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,4 +74,15 @@
 .status-arrows .arrow-up:active,
 .status-arrows .arrow-down:active {
   transform: scale(1);
+}
+
+.status-card-units {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--light-gray);
+  position: absolute;
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1.4rem;
 }

@@ -10,12 +10,14 @@ interface StatusCardProps {
   min?: number;
   max?: number;
   step?: number;
+  units?: string;
 }
 
 const StatusCard = ({
   label,
   name,
   value,
+  units,
   highlightColor,
   isInteractive = false,
   onChange,
@@ -102,6 +104,8 @@ const StatusCard = ({
             </div>
           </div>
         )}
+
+        {units && <p className="status-card-units">{units}</p>}
       </div>
     </div>
   );

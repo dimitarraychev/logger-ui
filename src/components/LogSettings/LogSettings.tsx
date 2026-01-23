@@ -41,6 +41,7 @@ const LogSettings = ({
       <StatusCard
         label="Poll Interval"
         name="pollInterval"
+        units="ms"
         value={values.pollInterval}
         isInteractive={true}
         onChange={handleChange}
@@ -50,8 +51,9 @@ const LogSettings = ({
       />
 
       <StatusCard
-        label="Limit"
+        label="Logs Limit"
         name="limit"
+        units="logs"
         value={values.limit}
         isInteractive={true}
         onChange={handleChange}
