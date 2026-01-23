@@ -1,66 +1,64 @@
 import "./LogSettings.css";
-import Button from "../Button/Button";
-import NumberInput from "../NumberInput/NumberInput";
-import PollLoader from "../PollLoader/PollLoader";
-import refreshIcon from "../../assets/refresh-icon.svg";
 import ApiStatus from "../ApiStatus/ApiStatus";
+import StatusCard from "../StatusCard/StatusCard";
 
 interface LogSettingsProps {
   values: {
     pollInterval: number;
     limit: number;
     showPings: boolean;
+    autoRefresh: boolean;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  refresh: () => void | Promise<void>;
+  refresh?: () => void | Promise<void>;
   pollTrigger: number;
 }
 
 const LogSettings = ({
   values,
   handleChange,
-  refresh,
   pollTrigger,
 }: LogSettingsProps) => {
   return (
     <div className="logs-settings">
       <ApiStatus refreshTrigger={pollTrigger} />
-      <label>
-        Show Pings
-        <input
-          type="checkbox"
-          name="showPings"
-          checked={values.showPings}
-          onChange={handleChange}
-        />
-      </label>
+      <StatusCard
+        label="Show Pings"
+        name="showPings"
+        value={values.showPings}
+        isInteractive={true}
+        onChange={handleChange}
+      />
 
-      <NumberInput
+      <StatusCard
+        label="Auto Refresh"
+        name="autoRefresh"
+        value={values.autoRefresh}
+        isInteractive={true}
+        onChange={handleChange}
+      />
+
+      <StatusCard
+        label="Poll Interval"
         name="pollInterval"
-        label="Poll Interval (ms):"
         value={values.pollInterval}
+        isInteractive={true}
+        onChange={handleChange}
         min={5000}
         max={20000}
-        onChange={handleChange}
+        step={1000}
       />
 
-      <NumberInput
+      <StatusCard
+        label="Limit"
         name="limit"
-        label="Limit:"
         value={values.limit}
+        isInteractive={true}
+        onChange={handleChange}
         min={50}
         max={200}
-        onChange={handleChange}
+        step={10}
       />
-
-      <Button
-        onClick={refresh}
-        title="Refresh"
-        text="Refresh"
-        icon={refreshIcon}
-      />
-
-      <PollLoader pollInterval={values.pollInterval} trigger={pollTrigger} />
     </div>
   );
 };

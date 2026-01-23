@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./ApiStatus.css";
+import StatusCard from "../StatusCard/StatusCard";
 
 interface ApiStatusProps {
   refreshTrigger?: number;
@@ -7,7 +8,7 @@ interface ApiStatusProps {
 
 const ApiStatus = ({ refreshTrigger }: ApiStatusProps) => {
   const [status, setStatus] = useState<"loading" | "live" | "offline">(
-    "loading"
+    "loading",
   );
 
   const checkStatus = async () => {
@@ -28,16 +29,18 @@ const ApiStatus = ({ refreshTrigger }: ApiStatusProps) => {
   }, [refreshTrigger]);
 
   const displayText =
-    status === "loading"
-      ? "Loading..."
-      : status === "live"
-      ? "Live"
-      : "Offline";
+    status === "loading" ? "Loading" : status === "live" ? "Live" : "Offline";
+
+  const displayColor =
+    status === "loading" ? "" : status === "live" ? "green" : "red";
 
   return (
-    <div className={`api-status ${status}`}>
-      <p>API Status: {displayText}</p>
-    </div>
+    <StatusCard
+      label="Status"
+      name="status"
+      value={displayText}
+      highlightColor={displayColor}
+    />
   );
 };
 

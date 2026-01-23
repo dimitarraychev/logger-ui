@@ -11,12 +11,14 @@ const LogViewer = () => {
     pollInterval: 5000,
     limit: 50,
     showPings: false,
+    autoRefresh: true,
   });
 
   const { logs, error, pollTrigger, refresh, pingsCount } = useLogs({
     pollInterval: values.pollInterval,
     limit: values.limit,
     showPings: values.showPings,
+    autoRefresh: values.autoRefresh,
   });
 
   const { expandedIds, toggleExpand } = useExpandableIds();

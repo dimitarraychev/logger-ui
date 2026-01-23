@@ -1,0 +1,77 @@
+.status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  height: 7rem;
+  width: 7rem;
+  aspect-ratio: 1/1;
+  background-color: var(--dark);
+  position: relative;
+}
+
+.status-card-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--light-gray);
+}
+
+.status-card-text {
+  font-size: 1.7rem;
+  word-wrap: break-word;
+}
+
+.status-red {
+  background-color: color-mix(in srgb, var(--red) 25%, transparent);
+}
+
+.status-green {
+  background-color: color-mix(in srgb, var(--green) 25%, transparent);
+}
+
+.status-gray {
+  background-color: color-mix(in srgb, var(--light-gray) 25%, transparent);
+}
+
+.status-interactive {
+  cursor: pointer;
+}
+
+.status-arrows {
+  position: absolute;
+  right: 2.9rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.status-arrows .arrow-up,
+.status-arrows .arrow-down {
+  text-align: center;
+  padding: 0 2px;
+  color: var(--light-gray);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 200ms;
+  transition-property: transform, filter;
+  background-color: transparent;
+}
+
+.status-arrows .arrow-up:hover,
+.status-arrows .arrow-down:hover {
+  filter: brightness(1.2);
+  transform: scale(1.02);
+}
+
+.status-arrows .arrow-up:active,
+.status-arrows .arrow-down:active {
+  transform: scale(1);
+}

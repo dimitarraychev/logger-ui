@@ -5,12 +5,14 @@ export interface UseLogsProps {
   pollInterval?: number;
   limit?: number;
   showPings?: boolean;
+  autoRefresh?: boolean;
 }
 
 export const useLogs = ({
   pollInterval,
   limit = 100,
   showPings = false,
+  autoRefresh = true,
 }: UseLogsProps = {}) => {
   const [logs, setLogs] = useState<LogEntryType[]>([]);
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,7 @@ export const useLogs = ({
   useEffect(() => {
     fetchLogs();
 
-    if (pollInterval) {
+    if (autoRefresh && pollInterval) {
       intervalRef.current = window.setInterval(fetchLogs, pollInterval);
       return () => {
         if (intervalRef.current !== undefined) {
@@ -51,7 +53,7 @@ export const useLogs = ({
         }
       };
     }
-  }, [limit, pollInterval]);
+  }, [limit, pollInterval, autoRefresh]);
 
   return {
     loading,
