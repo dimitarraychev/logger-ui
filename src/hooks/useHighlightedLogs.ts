@@ -8,7 +8,7 @@ interface UseHighlightedLogsOptions {
 
 export const useHighlightedLogs = ({
   logs,
-  highlightDuration = 3000,
+  highlightDuration = 2000,
 }: UseHighlightedLogsOptions) => {
   const [newIds, setNewIds] = useState<Set<string>>(new Set());
   const prevIdsRef = useRef<Set<string>>(new Set());

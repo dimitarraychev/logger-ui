@@ -14,18 +14,19 @@ const LogViewer = () => {
     autoRefresh: true,
   });
 
-  const { logs, error, pollTrigger, refresh, pingsCount, averageDuration } = useLogs({
-    pollInterval: values.pollInterval,
-    limit: values.limit,
-    showPings: values.showPings,
-    autoRefresh: values.autoRefresh,
-  });
+  const { logs, error, pollTrigger, refresh, pingsCount, averageDuration } =
+    useLogs({
+      pollInterval: values.pollInterval,
+      limit: values.limit,
+      showPings: values.showPings,
+      autoRefresh: values.autoRefresh,
+    });
 
   const { expandedIds, toggleExpand } = useExpandableIds();
 
   const { newIds } = useHighlightedLogs({
     logs,
-    highlightDuration: 3000,
+    highlightDuration: 2000,
   });
 
   return (

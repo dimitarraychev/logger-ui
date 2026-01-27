@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import type { LogEntryType } from "../types/Logs";
+import { calculateAverageDuration } from "../utils/calculateAverageDuration";
 
 export interface UseLogsProps {
   pollInterval?: number;
@@ -37,17 +38,7 @@ export const useLogs = ({
       setLogs(fetchedLogs);
       setError(null);
 
-      const durations = (
-        showPings ? fetchedLogs : fetchedLogs.filter((l) => l.level !== "ping")
-      )
-        .map((l) => l.metadata.durationMs)
-        .filter((d): d is number => typeof d === "number");
-
-      const avg =
-        durations.length > 0
-          ? durations.reduce((sum, d) => sum + d, 0) / durations.length
-          : 0;
-
+      const avg = calculateAverageDuration(fetchedLogs, showPings);
       setAverageDuration(avg);
     } catch (err: any) {
       setError(err.message || "Unknown error");
@@ -78,6 +69,6 @@ export const useLogs = ({
     refresh: fetchLogs,
     logs: filteredLogs,
     pingsCount,
-    averageDuration
+    averageDuration,
   };
 };
