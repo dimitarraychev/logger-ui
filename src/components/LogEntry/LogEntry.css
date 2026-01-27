@@ -74,12 +74,12 @@
 }
 
 .log-new {
-  animation: highlightFlash 3s ease-out;
+  animation: highlightFlash 2s ease-out;
 }
 
 @keyframes highlightFlash {
   0% {
-    background-color: #ffff99;
+    background-color: rgba(255, 255, 255, 0.8);
   }
   100% {
     background-color: transparent;
