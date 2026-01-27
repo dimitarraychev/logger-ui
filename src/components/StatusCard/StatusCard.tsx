@@ -96,7 +96,7 @@ const StatusCard = ({
 
       <div className="status-card-text-wrapper">
         {isLoading ? (
-          <Loader size={2.1} />
+          <Loader size={2.6} />
         ) : (
           <>
             <p className="status-card-text">{displayValue}</p>
