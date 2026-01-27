@@ -1,3 +1,4 @@
+import Loader from "../Loader/Loader";
 import "./StatusCard.css";
 
 interface StatusCardProps {
@@ -11,6 +12,7 @@ interface StatusCardProps {
   max?: number;
   step?: number;
   units?: string;
+  isLoading?: boolean;
 }
 
 const StatusCard = ({
@@ -24,6 +26,7 @@ const StatusCard = ({
   min,
   max,
   step = 1,
+  isLoading,
 }: StatusCardProps) => {
   const displayValue =
     typeof value === "boolean" ? (value ? "ON" : "OFF") : value;
@@ -92,20 +95,26 @@ const StatusCard = ({
       <p className="status-card-label">{label}:</p>
 
       <div className="status-card-text-wrapper">
-        <p className="status-card-text">{displayValue}</p>
+        {isLoading ? (
+          <Loader size={2.1} />
+        ) : (
+          <>
+            <p className="status-card-text">{displayValue}</p>
 
-        {typeof value === "number" && isInteractive && (
-          <div className="status-arrows">
-            <div onClick={increment} className="arrow-up">
-              ▲
-            </div>
-            <div onClick={decrement} className="arrow-down">
-              ▼
-            </div>
-          </div>
+            {typeof value === "number" && isInteractive && (
+              <div className="status-arrows">
+                <div onClick={increment} className="arrow-up">
+                  ▲
+                </div>
+                <div onClick={decrement} className="arrow-down">
+                  ▼
+                </div>
+              </div>
+            )}
+
+            {units && <p className="status-card-units">{units}</p>}
+          </>
         )}
-
-        {units && <p className="status-card-units">{units}</p>}
       </div>
     </div>
   );

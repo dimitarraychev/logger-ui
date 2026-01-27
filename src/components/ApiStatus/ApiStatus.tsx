@@ -40,6 +40,7 @@ const ApiStatus = ({ refreshTrigger }: ApiStatusProps) => {
       name="status"
       value={displayText}
       highlightColor={displayColor}
+      isLoading={status === "loading"}
     />
   );
 };
