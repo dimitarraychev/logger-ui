@@ -47,7 +47,11 @@ const LogEntry = ({
       </summary>
 
       <div className="log-details">
-        {body && <JsonViewer jsonData={body} title="Request Body:" />}
+        {body ? (
+          <JsonViewer jsonData={body} title="Request Body:" />
+        ) : (
+          <JsonViewer jsonData={metadata} title="Request Metadata:" />
+        )}
         {responseBody && (
           <JsonViewer jsonData={responseBody} title="Response Body:" />
         )}
