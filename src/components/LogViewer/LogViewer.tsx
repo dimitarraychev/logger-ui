@@ -11,7 +11,7 @@ const LogViewer = () => {
     pollInterval: 5000,
     limit: 50,
     showPings: false,
-    autoRefresh: true,
+    autoRefresh: false,
   });
 
   const { logs, error, pollTrigger, refresh, pingsCount, averageDuration } =
