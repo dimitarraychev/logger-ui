@@ -7,6 +7,7 @@ interface LogSettingsProps {
     pollInterval: number;
     limit: number;
     showPings: boolean;
+    showReports: boolean;
     autoRefresh: boolean;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,6 +29,14 @@ const LogSettings = ({
         label="Show Pings"
         name="showPings"
         value={values.showPings}
+        isInteractive={true}
+        onChange={handleChange}
+      />
+
+      <StatusCard
+        label="Show Reports"
+        name="showReports"
+        value={values.showReports}
         isInteractive={true}
         onChange={handleChange}
       />

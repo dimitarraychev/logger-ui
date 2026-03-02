@@ -6,6 +6,7 @@ export interface UseLogsProps {
   pollInterval?: number;
   limit?: number;
   showPings?: boolean;
+  showReports?: boolean;
   autoRefresh?: boolean;
 }
 
@@ -13,6 +14,7 @@ export const useLogs = ({
   pollInterval,
   limit = 100,
   showPings = false,
+  showReports = false,
   autoRefresh = true,
 }: UseLogsProps = {}) => {
   const [logs, setLogs] = useState<LogEntryType[]>([]);
@@ -21,10 +23,19 @@ export const useLogs = ({
   const [pollTrigger, setPollTrigger] = useState(0);
   const [averageDuration, setAverageDuration] = useState<number | null>(null);
 
-  const filteredLogs = showPings
-    ? logs
-    : logs.filter((log) => log.message !== "Ping");
+  const containsKeyword = (log: LogEntryType, keyword: string) =>
+    log.message?.toLowerCase().includes(keyword.toLowerCase());
+
+  const isPing = (log: LogEntryType) => containsKeyword(log, "ping");
+  const isReport = (log: LogEntryType) => containsKeyword(log, "report");
+
+  const filteredLogs = logs.filter((log) => {
+    if (showPings && isPing(log)) return true;
+    if (showReports && isReport(log)) return true;
+    return true; 
+  });
   const pingsCount = logs.filter((log) => log.message === "Ping").length;
+  const reportsCount = logs.filter(isReport).length;
 
   const intervalRef = useRef<number | undefined>(undefined);
 
@@ -69,6 +80,7 @@ export const useLogs = ({
     refresh: fetchLogs,
     logs: filteredLogs,
     pingsCount,
+    reportsCount,
     averageDuration,
   };
 };

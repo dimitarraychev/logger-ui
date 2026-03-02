@@ -11,6 +11,7 @@ const LogViewer = () => {
     pollInterval: 5000,
     limit: 50,
     showPings: false,
+    showReports: false,
     autoRefresh: false,
   });
 
@@ -19,6 +20,7 @@ const LogViewer = () => {
       pollInterval: values.pollInterval,
       limit: values.limit,
       showPings: values.showPings,
+      showReports: values.showReports,
       autoRefresh: values.autoRefresh,
     });
 
