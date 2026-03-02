@@ -1,6 +1,6 @@
 .logs-wrapper {
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 var(--padding);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -10,10 +10,10 @@
 .logs-container {
   flex: 1;
   overflow-y: scroll;
-  border: 1px solid var(--border);
-  padding: 0.5rem;
-  background-color: var(--dark);
-  border-radius: 0.5rem;
+  border: var(--card-border);
+  padding: var(--padding);
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
   margin-top: 0.5rem;
 }
 
@@ -22,5 +22,5 @@
 }
 
 .logs-info {
-  color: var(--light-gray);
+  color: var(--text-secondary);
 }

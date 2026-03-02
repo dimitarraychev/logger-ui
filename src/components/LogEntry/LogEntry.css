@@ -1,5 +1,5 @@
 .log-entry {
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--card-border);
   padding: 0.5rem 0;
   font-family: monospace;
   font-size: 14px;
@@ -14,7 +14,7 @@
 
 .log-summary::before {
   content: "▼";
-  color: var(--dark-gray);
+  color: var(--text-secondary);
   display: inline-block;
   margin-left: 0.2rem;
   text-align: center;
@@ -31,7 +31,7 @@
 
 .log-timestamp,
 .log-duration {
-  color: var(--dark-gray);
+  color: var(--text-secondary);
 }
 
 .log-level {
@@ -39,7 +39,7 @@
 }
 
 .log-level-info {
-  color: var(--selected);
+  color: var(--accent);
 }
 
 .log-level-warn {
@@ -51,7 +51,7 @@
 }
 
 .log-level-ping {
-  color: var(--light-gray);
+  color: var(--text-secondary);
 }
 
 .log-message {
