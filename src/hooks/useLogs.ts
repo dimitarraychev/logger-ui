@@ -23,8 +23,8 @@ export const useLogs = ({
 
   const filteredLogs = showPings
     ? logs
-    : logs.filter((log) => log.level !== "ping");
-  const pingsCount = logs.filter((log) => log.level === "ping").length;
+    : logs.filter((log) => log.message !== "Ping");
+  const pingsCount = logs.filter((log) => log.message === "Ping").length;
 
   const intervalRef = useRef<number | undefined>(undefined);
 
