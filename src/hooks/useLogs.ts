@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import type { LogEntryType } from "../types/Logs";
 import { calculateAverageDuration } from "../utils/calculateAverageDuration";
+// import { logsExample } from "../assets/logsExample";
 
 export interface UseLogsProps {
   pollInterval?: number;
@@ -30,16 +31,21 @@ export const useLogs = ({
   const isReport = (log: LogEntryType) => containsKeyword(log, "report");
 
   const filteredLogs = logs.filter((log) => {
-    if (showPings && isPing(log)) return true;
-    if (showReports && isReport(log)) return true;
-    return true; 
+    const ping = isPing(log);
+    const report = isReport(log);
+
+    if (!showPings && ping) return false;
+    if (!showReports && report) return false;
+
+    return true;
   });
-  const pingsCount = logs.filter((log) => log.message === "Ping").length;
+  const pingsCount = logs.filter(isPing).length;
   const reportsCount = logs.filter(isReport).length;
 
   const intervalRef = useRef<number | undefined>(undefined);
 
   const fetchLogs = async () => {
+    // setLogs(logsExample.logs);
     setLoading(true);
     try {
       const res = await fetch(`/api/logs?limit=${limit}`);
