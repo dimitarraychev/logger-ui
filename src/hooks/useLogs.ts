@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import type { LogEntryType } from "../types/Logs";
 import { calculateAverageDuration } from "../utils/calculateAverageDuration";
-// import { logsExample } from "../assets/logsExample";
+import { logsExample } from "../assets/logsExample";
 
 export interface UseLogsProps {
   pollInterval?: number;
@@ -52,7 +52,7 @@ export const useLogs = ({
   const intervalRef = useRef<number | undefined>(undefined);
 
   const fetchLogs = async () => {
-    // setLogs(logsExample.logs);
+    return setLogs(logsExample.logs);
     setLoading(true);
     try {
       const res = await fetch(`/api/logs?limit=${limit}`);

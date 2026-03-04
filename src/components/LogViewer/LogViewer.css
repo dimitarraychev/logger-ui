@@ -5,11 +5,12 @@
   flex-direction: column;
   flex: 1;
   gap: var(--gap);
+  margin-bottom: 1rem;
 }
 
 .logs-container {
   flex: 1;
-  overflow-y: scroll;
+  overflow: hidden;
   border: var(--card-border);
   padding: var(--padding);
   background: var(--card-bg);

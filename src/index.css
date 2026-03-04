@@ -94,6 +94,7 @@ h6 {
 }
 
 /* Scrollbar */
+/* Scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.05);
