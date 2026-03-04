@@ -5,24 +5,25 @@ import { useForm } from "../../hooks/useForm";
 import { useLogs } from "../../hooks/useLogs";
 import { useExpandableIds } from "../../hooks/useExpandableIds";
 import { useHighlightedLogs } from "../../hooks/useHighlightedLogs";
+import TabsMenu from "../TabsMenu/TabsMenu";
+import { useTabs } from "../../hooks/useTabs";
 
 const LogViewer = () => {
+  const tabs = ["All", "Game", "Pings", "Reports"];
+  const { selectedTab, changeSelectedTab } = useTabs();
+
   const { values, handleChange } = useForm({
     pollInterval: 5000,
     limit: 50,
-    showPings: false,
-    showReports: false,
     autoRefresh: false,
   });
 
-  const { logs, error, pollTrigger, refresh, pingsCount, averageDuration } =
-    useLogs({
-      pollInterval: values.pollInterval,
-      limit: values.limit,
-      showPings: values.showPings,
-      showReports: values.showReports,
-      autoRefresh: values.autoRefresh,
-    });
+  const { logs, error, pollTrigger, refresh, averageDuration } = useLogs({
+    pollInterval: values.pollInterval,
+    limit: values.limit,
+    autoRefresh: values.autoRefresh,
+    selectedTab,
+  });
 
   const { expandedIds, toggleExpand } = useExpandableIds();
 
@@ -41,13 +42,13 @@ const LogViewer = () => {
         averageDuration={averageDuration}
       />
 
-      <div className="logs-container">
-        {!values.showPings && pingsCount > 0 && (
-          <div className="logs-info">
-            {pingsCount} ping log{pingsCount !== 1 ? "s" : ""} filtered
-          </div>
-        )}
+      <TabsMenu
+        tabs={tabs}
+        selectedTab={selectedTab}
+        onChange={changeSelectedTab}
+      />
 
+      <div className="logs-container">
         {error ? (
           <p className="logs-error">{error}</p>
         ) : (

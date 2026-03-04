@@ -6,8 +6,6 @@ interface LogSettingsProps {
   values: {
     pollInterval: number;
     limit: number;
-    showPings: boolean;
-    showReports: boolean;
     autoRefresh: boolean;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -25,21 +23,6 @@ const LogSettings = ({
   return (
     <div className="logs-settings">
       <ApiStatus refreshTrigger={pollTrigger} />
-      <StatusCard
-        label="Show Pings"
-        name="showPings"
-        value={values.showPings}
-        isInteractive={true}
-        onChange={handleChange}
-      />
-
-      <StatusCard
-        label="Show Reports"
-        name="showReports"
-        value={values.showReports}
-        isInteractive={true}
-        onChange={handleChange}
-      />
 
       <StatusCard
         label="Auto Refresh"

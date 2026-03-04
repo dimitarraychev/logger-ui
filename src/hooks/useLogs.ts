@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import type { LogEntryType } from "../types/Logs";
 import { calculateAverageDuration } from "../utils/calculateAverageDuration";
 // import { logsExample } from "../assets/logsExample";
@@ -6,17 +6,15 @@ import { calculateAverageDuration } from "../utils/calculateAverageDuration";
 export interface UseLogsProps {
   pollInterval?: number;
   limit?: number;
-  showPings?: boolean;
-  showReports?: boolean;
   autoRefresh?: boolean;
+  selectedTab?: string;
 }
 
 export const useLogs = ({
   pollInterval,
   limit = 100,
-  showPings = false,
-  showReports = false,
   autoRefresh = true,
+  selectedTab = "All",
 }: UseLogsProps = {}) => {
   const [logs, setLogs] = useState<LogEntryType[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,17 +28,26 @@ export const useLogs = ({
   const isPing = (log: LogEntryType) => containsKeyword(log, "ping");
   const isReport = (log: LogEntryType) => containsKeyword(log, "report");
 
-  const filteredLogs = logs.filter((log) => {
-    const ping = isPing(log);
-    const report = isReport(log);
+  const filteredLogs = useMemo(() => {
+    if (selectedTab === "All") return logs;
 
-    if (!showPings && ping) return false;
-    if (!showReports && report) return false;
+    if (selectedTab === "Game") {
+      return logs.filter((log) => !isPing(log) && !isReport(log));
+    }
 
-    return true;
-  });
-  const pingsCount = logs.filter(isPing).length;
-  const reportsCount = logs.filter(isReport).length;
+    if (selectedTab === "Pings") {
+      return logs.filter((log) => isPing(log));
+    }
+
+    if (selectedTab === "Reports") {
+      return logs.filter((log) => isReport(log));
+    }
+
+    return logs;
+  }, [logs, selectedTab]);
+
+  const pingsCount = useMemo(() => logs.filter(isPing).length, [logs]);
+  const reportsCount = useMemo(() => logs.filter(isReport).length, [logs]);
 
   const intervalRef = useRef<number | undefined>(undefined);
 
@@ -55,7 +62,7 @@ export const useLogs = ({
       setLogs(fetchedLogs);
       setError(null);
 
-      const avg = calculateAverageDuration(fetchedLogs, showPings);
+      const avg = calculateAverageDuration(fetchedLogs);
       setAverageDuration(avg);
     } catch (err: any) {
       setError(err.message || "Unknown error");
