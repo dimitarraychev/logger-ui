@@ -9,7 +9,7 @@ import TabsMenu from "../TabsMenu/TabsMenu";
 import { useTabs } from "../../hooks/useTabs";
 
 const LogViewer = () => {
-  const tabs = ["All", "Game", "Pings", "Reports"];
+  const tabs = ["All", "Game", "Pings", "Error Reports", "Accounting Reports"];
   const { selectedTab, changeSelectedTab } = useTabs();
 
   const { values, handleChange } = useForm({

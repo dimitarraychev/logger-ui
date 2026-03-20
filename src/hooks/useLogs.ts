@@ -26,28 +26,37 @@ export const useLogs = ({
     log.message?.toLowerCase().includes(keyword.toLowerCase());
 
   const isPing = (log: LogEntryType) => containsKeyword(log, "ping");
-  const isReport = (log: LogEntryType) => containsKeyword(log, "report");
+  const isErrorReport = (log: LogEntryType) =>
+    containsKeyword(log, "error report");
+  const isAccountingReport = (log: LogEntryType) =>
+    containsKeyword(log, "accounting report");
 
   const filteredLogs = useMemo(() => {
     if (selectedTab === "All") return logs;
 
     if (selectedTab === "Game") {
-      return logs.filter((log) => !isPing(log) && !isReport(log));
+      return logs.filter(
+        (log) =>
+          !isPing(log) && !isErrorReport(log) && !isAccountingReport(log),
+      );
     }
 
     if (selectedTab === "Pings") {
       return logs.filter((log) => isPing(log));
     }
 
-    if (selectedTab === "Reports") {
-      return logs.filter((log) => isReport(log));
+    if (selectedTab === "Error Reports") {
+      return logs.filter((log) => isErrorReport(log));
+    }
+
+    if (selectedTab === "Accounting Reports") {
+      return logs.filter((log) => isAccountingReport(log));
     }
 
     return logs;
   }, [logs, selectedTab]);
 
   const pingsCount = useMemo(() => logs.filter(isPing).length, [logs]);
-  const reportsCount = useMemo(() => logs.filter(isReport).length, [logs]);
 
   const intervalRef = useRef<number | undefined>(undefined);
 
@@ -93,7 +102,6 @@ export const useLogs = ({
     refresh: fetchLogs,
     logs: filteredLogs,
     pingsCount,
-    reportsCount,
     averageDuration,
   };
 };
