@@ -12,16 +12,16 @@ const LogViewer = () => {
   const tabs = ["All", "Game", "Pings", "Error Reports", "Accounting Reports"];
   const { selectedTab, changeSelectedTab } = useTabs();
 
-  const { values, handleChange } = useForm({
+  const { values, debouncedValues, handleChange } = useForm({
     pollInterval: 5000,
     limit: 50,
     autoRefresh: false,
   });
 
   const { logs, error, pollTrigger, refresh, averageDuration } = useLogs({
-    pollInterval: values.pollInterval,
-    limit: values.limit,
-    autoRefresh: values.autoRefresh,
+    pollInterval: debouncedValues.pollInterval,
+    limit: debouncedValues.limit,
+    autoRefresh: debouncedValues.autoRefresh,
     selectedTab,
   });
 

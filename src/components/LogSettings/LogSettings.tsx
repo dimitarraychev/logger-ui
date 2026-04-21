@@ -52,7 +52,7 @@ const LogSettings = ({
         isInteractive={true}
         onChange={handleChange}
         min={50}
-        max={200}
+        max={500}
         step={10}
       />
 
