@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 type FormValues = Record<string, any>;
 
@@ -9,9 +9,13 @@ export const useForm = <T extends FormValues>(initialValues: T, delay: number = 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, value, checked } = e.target;
     
+    let finalValue: any = value;
+    if (type === "checkbox") finalValue = checked;
+    if (type === "number") finalValue = value === "" ? 0 : Number(value);
+
     setValues((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value, 
+      [name]: finalValue,
     }));
   };
 
@@ -20,19 +24,8 @@ export const useForm = <T extends FormValues>(initialValues: T, delay: number = 
       setDebouncedValues(values);
     }, delay);
 
-    return () => {
-      clearTimeout(handler);
-    };
+    return () => clearTimeout(handler);
   }, [values, delay]);
 
-  const setFormValues = useCallback((newValues: Partial<T>) => {
-    setValues((prev) => ({ ...prev, ...newValues }));
-  }, []);
-
-  return { 
-    values,           
-    debouncedValues,  
-    handleChange, 
-    setFormValues 
-  };
+  return { values, debouncedValues, handleChange };
 };

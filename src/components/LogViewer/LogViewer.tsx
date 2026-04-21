@@ -21,7 +21,7 @@ const LogViewer = () => {
   const { logs, error, pollTrigger, refresh, averageDuration } = useLogs({
     pollInterval: debouncedValues.pollInterval,
     limit: debouncedValues.limit,
-    autoRefresh: debouncedValues.autoRefresh,
+    autoRefresh: values.autoRefresh,
     selectedTab,
   });
 
