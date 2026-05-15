@@ -22,7 +22,10 @@ export const useLogs = ({
   const [pollTrigger, setPollTrigger] = useState(0);
   const [averageDuration, setAverageDuration] = useState<number | null>(null);
   const { selectedApi } = useApi();
-  const URL = selectedApi && `http://45.128.98.99:3001/logs?limit=${limit}`;
+  const URL =
+    selectedApi === "game-api"
+      ? `http://45.128.98.99:3001/logs?limit=${limit}`
+      : `http://45.128.98.99:3002/logs?limit=${limit}`;
 
   const containsKeyword = (log: LogEntryType, keyword: string) =>
     log.message?.toLowerCase().includes(keyword.toLowerCase());
