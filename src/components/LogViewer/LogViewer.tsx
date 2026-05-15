@@ -5,13 +5,8 @@ import { useForm } from "../../hooks/useForm";
 import { useLogs } from "../../hooks/useLogs";
 import { useExpandableIds } from "../../hooks/useExpandableIds";
 import { useHighlightedLogs } from "../../hooks/useHighlightedLogs";
-import TabsMenu from "../TabsMenu/TabsMenu";
-import { useTabs } from "../../hooks/useTabs";
 
 const LogViewer = () => {
-  const tabs = ["All", "Game", "Pings", "Error Reports", "Accounting Reports"];
-  const { selectedTab, changeSelectedTab } = useTabs();
-
   const { values, debouncedValues, handleChange } = useForm({
     pollInterval: 5000,
     limit: 50,
@@ -22,7 +17,6 @@ const LogViewer = () => {
     pollInterval: debouncedValues.pollInterval,
     limit: debouncedValues.limit,
     autoRefresh: values.autoRefresh,
-    selectedTab,
   });
 
   const { expandedIds, toggleExpand } = useExpandableIds();
@@ -40,12 +34,6 @@ const LogViewer = () => {
         refresh={refresh}
         pollTrigger={pollTrigger}
         averageDuration={averageDuration}
-      />
-
-      <TabsMenu
-        tabs={tabs}
-        selectedTab={selectedTab}
-        onChange={changeSelectedTab}
       />
 
       <div className="logs-container">
