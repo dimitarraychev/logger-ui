@@ -1,6 +1,7 @@
 import "./LogEntry.css";
 import type { LogEntryType } from "../../types/Logs";
 import JsonViewer from "../JsonViewer/JsonViewer";
+import { shortFormatDate } from "../../utils/date";
 
 interface LogEntryProps {
   log: LogEntryType;
@@ -15,9 +16,10 @@ const LogEntry = ({
   toggleExpand,
   highlight = false,
 }: LogEntryProps) => {
-  const { level, message, metadata } = log;
-  const { method, path, body, status, durationMs, responseBody, timestamp } =
-    metadata;
+  const { level, message, metadata, timestamp } = log;
+  const { method, path, body, status, durationMs, responseBody } = metadata;
+
+  const timestampConv = shortFormatDate(timestamp);
 
   return (
     <details
@@ -25,7 +27,7 @@ const LogEntry = ({
       open={isExpanded}
     >
       <summary className="log-summary" onClick={toggleExpand}>
-        <span className="log-timestamp">{timestamp}</span>
+        <span className="log-timestamp">{timestampConv}</span>
         <span className={`log-level log-level-${level}`}>
           {level.toUpperCase()}
         </span>
